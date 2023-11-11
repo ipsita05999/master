@@ -1,0 +1,104 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    width:100vw;
+    background-color: #e6e6e6;
+    display:flex;
+    justify-content: center;
+   
+}
+
+.container{   
+    min-height:300px;
+    width:50%;
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    border-radius: 8px;
+    padding:5px;
+    margin-top:20px;
+    box-shadow: 0px 10px 20px  rgba(0,0,0,0.3);
+}
+
+.input-div{
+    display:flex;
+    width:98%; 
+    background-color: #f2f2f2;  
+    border-radius: 10px;    
+    padding:20px 20px;    
+    margin:5px;
+}
+.fa-file-lines{
+    font-size: 20px; 
+    padding:0px 15px;
+}
+.fa-circle-plus{
+    font-size: 20px; 
+    cursor: pointer;
+}
+.input-div input[type="text"]{
+    width:90%;
+    background-color: #f2f2f2;  
+    border: none;
+    outline: none;
+    font-size: 20px; 
+}
+.menu-items{
+    display:flex;
+    justify-content: space-between;
+    width:98%;
+    padding:10px 15px;    
+    margin:5px; 
+    color: #a6a6a6;
+}
+.completeAllTask{
+    padding:0 15px;
+    cursor: pointer;
+}
+.completeAllTask:hover{
+    color: black;
+}
+.clearcompletedBtn{    
+    cursor: pointer;
+}
+.clearcompletedBtn:hover{
+    color: black;
+}
+.hr-content{
+    margin:0px 10px;
+}
+.footer-items{
+    display:flex;
+    justify-content: space-between;
+    width:98%;
+    padding:10px 8px;    
+    margin:5px; 
+    color: #a6a6a6;
+}
+.pointer{
+    cursor: pointer;
+    padding-right: 10px;
+}
+.filter-items label:hover{
+    color: black;
+}
+.items{
+    min-height:100px;
+    padding:10px 8px;  
+    margin:5px;
+}
+
+.items li{
+    list-style-type: none;
+    font-size: 22px;
+    padding:5px;
+    display:flex;
+    justify-content: space-between;
+}
+ul li div i, ul li i{
+    cursor: pointer;
+}
