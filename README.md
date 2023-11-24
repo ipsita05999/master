@@ -1,1 +1,1 @@
-# master
+vanilla Javascript projects
