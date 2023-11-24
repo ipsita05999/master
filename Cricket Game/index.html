@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>Cricket Game</title>
+</head>
+<body>
+  <h1>BAT BALL STUMP GAME</h1>
+  <button class="choice-button" id="bat-button"><img src="/images/bat.png" height="150px" class="choice-image"></button>
+  <button class="choice-button" id="ball-button"><img src="/images/ball.png" class="choice-image"></button>
+  <button class="choice-button" id="stump-button" onclick="onStumpClick()"><img src="/images/stump.png" class="choice-image"></button>
+
+  <h2 id="userChoice"></h2>
+  <h2 id="computerChoice"></h2>
+  <h2 id="result">
+  </h2>
+  <button id="resetBtn" onclick="clearLocalStrorage()">Reset</button>
+
+  <script src="cricket.js"></script>
+</body>
+</html>
