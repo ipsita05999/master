@@ -1,0 +1,7 @@
+.mainContainer{
+  width:80%;
+  margin: 40px 13%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+ }
