@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/nav.ejs') %>
+
+  <div class="create-project-container">
+    <button class="createBtn"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Create New Project</button>&nbsp;&nbsp;
+    <button class="masterPageBtn"><i class="fa-solid fa-database"></i>&nbsp;&nbsp;Master Page</button>
+  </div>
+  <div class="table-container">
+    <table class="home-table">
+      <thead class="home-table-head">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Author</th>
+          <th>Action</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(projects.length > 0){ %>
+        <% projects.forEach(project =>{ %>
+        <tr>
+          <td><%= project.Name %></td>
+          <td><%= project.Description %></td>
+          <td><%= project.Author %></td>
+          <td><i title="delete" class="fa-solid fa-trash trashCan" data-doc="<%= project._id %>"></i></td>
+          <td><a href="projects/<%= project._id %>"><i class="fa-solid fa-eye"></i>&nbsp;&nbsp;Show Project Details</a></td>
+        </tr>
+        <% }) %>
+        <% } else{ %>
+          <tr><td></td>
+            <td></td><td>No Projects available</td><td></td><td></td></tr>
+          
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const createBtn = document.querySelector('.createBtn');    
+    const trashCan = Array.from(document.querySelectorAll('.trashCan'));
+    const masterPage = document.querySelector('.masterPageBtn');
+    createBtn.addEventListener('click',()=>{
+      window.location.href='/projects/create';
+    });
+    masterPage.addEventListener('click',()=>{
+      window.location.href='/master';
+    })
+
+    for(let i=0;i<trashCan.length;i++){
+    trashCan[i].addEventListener('click', () => {
+          const endPoint = `/projects/${trashCan[i].dataset.doc}`;
+          fetch(endPoint, {
+            method: 'DELETE'
+          })
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              console.log(data);
+              alert('Project has been delete successfully');
+              window.location.href = data.redirect;
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        })
+      }
+  </script>
+</body>
+</html>

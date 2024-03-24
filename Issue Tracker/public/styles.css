@@ -1,0 +1,292 @@
+body{
+  margin:0;
+  padding:0;
+  font-family: 'Karla', sans-serif;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.nav-container{
+  background-color: #4a174a;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon{
+  width:40px;
+}
+.header{
+  margin:0;
+  padding:0;
+  color: white;
+  font-size: 2rem;
+}
+
+/* Home page styles */
+.create-project-container{
+ margin: 30px auto;
+ width:90%;
+ display: flex;
+ flex-direction: row-reverse;
+ margin-bottom: 20px;
+}
+.createBtn, .masterPageBtn{
+  padding:8px;
+  cursor: pointer;
+  background: rgb(160, 55, 160);
+  color: white;
+  border: none;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+.createBtn:hover, .masterPageBtn:hover{
+  background: #4a174a;
+}
+.table-container{
+width:90%;
+margin: 20px auto;
+display: flex;
+justify-content: center;
+max-height: 350px;
+overflow-y: auto;
+}
+.home-table{
+border-collapse: collapse;
+table-layout: fixed;
+width: 100%;
+}
+.home-table-head{
+  background-color: #efe7f1;
+}
+th,td{
+  padding:10px;
+  text-align: center;
+  border-bottom: 1px solid #efe7f1;
+  border-collapse: collapse;
+  word-break: break-all;
+}
+td > a{
+  text-decoration: none;
+  color:black
+}
+
+/* Create project page styles */
+.create-project form{
+  max-width:400px;
+  margin: 35px auto;
+}
+.create-project input,
+.create-project textarea{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+}
+.create-project label{
+  display: block;
+  margin-top: 20px;
+}
+textarea{
+  height: 120px;
+}
+.create-project button{
+  margin-top: 10px;
+  background: rgb(160, 55, 160);
+  color: white;
+  padding: 10px;
+  border: 0;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 8px;
+}
+.create-project button:hover{
+  background: #4a174a;
+}
+/* Issue Page styles */
+.reportBtn, .backHomeBtn, #searchBtn{
+  padding:8px;
+  cursor: pointer;
+  background: rgb(160, 55, 160);
+  color: white;
+  border: none;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+ }
+ .reportBtn:hover, .backHomeBtn:hover, #searchBtn:hover{
+   background: #4a174a;
+ }
+ .trashCan{
+  color: red;
+  cursor: pointer;
+ }
+ .report-issue-container{
+  position: relative;
+  margin: 5px auto;
+ width:90%;
+ display: flex;
+ margin-bottom: 20px;
+
+ }
+ .colors{
+  color: gray;
+ }
+ .h4-color{
+  color: #4a174a;
+ }
+
+ .button-menus{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+ }
+
+ .project-details > h4{
+  margin-bottom: 2px;
+  margin-top: 6px;
+ }
+ 
+ .project-Name{
+  text-align: center;
+  text-decoration: underline;
+  font-size: 2rem;
+  margin: 10px 0px;
+ }
+
+ .search-menus{
+  /* border:1px solid green; */
+  width: 90%;
+  margin: auto;
+ }
+ .search-menus textarea{
+  height:30px;
+ }
+
+.forms{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+ }
+
+ /* Report Issue Page styles */
+ .create-issue form{
+  max-width:400px;
+  margin: 25px auto;
+}
+.create-issue input,
+.create-issue textarea{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+}
+.create-issue label{
+  display: block;
+  margin-top: 20px;
+}
+.create-issue textarea{
+  height: 120px;
+}
+.create-issue button{
+  margin-top: 10px;
+  background: rgb(160, 55, 160);
+  color: white;
+  padding: 10px;
+  border: 0;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 8px;
+}
+.create-issue button:hover{
+  background: #4a174a;
+}
+/* Master Page styles */
+.createMasterBtn{
+  padding:8px;
+  cursor: pointer;
+  background: rgb(160, 55, 160);
+  color: white;
+  border: none;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+.modal-popup, .modal-edit-popup{
+  background: white;
+  position: absolute;
+  min-width:500px;
+  margin: 35px auto;
+  z-index: 3;
+  left:30%;
+  top:8%;
+  padding:10px 30px;
+  display: none;
+}
+.overlay{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+  width:100%;
+  height:100%;
+  backdrop-filter: blur(3px);
+  background: rgba(0,0,0,0.6);
+  z-index: 2;
+  display: none;
+}
+.modal-header{
+  color:#4a174a;
+}
+.modal-popup input, .modal-popup select, .modal-edit-popup input, .modal-edit-popup select{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px 0;
+}
+.modal-popup label, .modal-edit-popup label{
+  display: block;
+  margin-top: 20px;
+}
+.modal-popup button, .closeBtn, .closeEditBtn, #editBtn{
+  margin-top: 10px;
+  background: rgb(160, 55, 160);
+  color: white;
+  padding: 10px;
+  border: 0;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 8px;
+}
+.modal-popup button:hover, .closeBtn:hover, .closeEditBtn:hover, #editBtn:hover{
+  background: #4a174a;
+}
+.editBtn{
+  cursor: pointer;
+}
+
+/* Error Page styles */
+.error-page{
+  width:50%;
+  margin: 5% auto;
+  text-align: center;
+}
+.first{
+  font-size: 2.7rem;
+  color: rgb(160, 55, 160);
+}
+.second{
+  font-size: 1.2rem;
+  color: rgb(160, 55, 160);
+}
+.third{
+  margin: 30px 0;
+  font-size: 15rem;
+  color: #4a174a;
+  text-shadow: 8px 8px rgb(160, 55, 160);
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+      <div class="report-issue-container">
+        <div class="project-details">
+          <h4 class="h4-color"><b class="colors">Project Name:</b> &nbsp;<%= projectResult.Name %>
+          </h4>
+          <h4 class="h4-color"><b class="colors">Project Author:</b> &nbsp;<%= projectResult.Author %>
+          </h4>
+          <h4 class="h4-color"><b class="colors">No. of Issues:</b> &nbsp;<%= Issues.length %>
+          </h4>
+        </div>
+        <div class="button-menus">
+          <button class="reportBtn" data-id="<%= projectResult._id %>"><i
+              class="fa-solid fa-plus"></i>&nbsp;&nbsp;Report New Issue</button>&nbsp;&nbsp;
+          <button class="backHomeBtn" data-id="<%= projectResult._id %>"><i
+              class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Back Home</button>
+        </div>
+      </div>
+      <div>
+      </div>
+      <div class="search-menus">
+        <div class="forms">
+          <label for="Title">Title:</label>
+          <input type="text" id="Name" name="Name">
+          <label for="Author">Author:</label>
+          <input type="text" id="Author" name="Author">
+          <label for="Label">Labels:</label>
+          <% if(labels!=null && labels.length> 0){ %>
+            <select name="Label" id="Label" placeholder="This is a placeholder" multiple data-doc="<%= labels %>">
+              <% labels.map(item=>{ %>
+                <option value="<%= item %>">
+                  <%= item %>
+                </option>
+                <% }); %>
+            </select>
+            <% } %>
+              <label for="Description">Description:</label>
+              <textarea id="Description" name="Description"></textarea>
+              <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;Search</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table class="home-table" data-issues="<%= Issues %>">
+          <thead class="home-table-head">
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Author</th>
+              <th>Label</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="tBody">
+            <% if(Issues!=null && Issues.length> 0){ %>
+              <% Issues.forEach(issue=>{ %>
+                <tr>
+                  <td>
+                    <%= issue.Title %>
+                  </td>
+                  <td>
+                    <%= issue.Description %>
+                  </td>
+                  <td>
+                    <%= issue.Author %>
+                  </td>
+                  <td>
+                    <%= issue.Label %>
+                  </td>
+                  <td><i title="delete" class="fa-solid fa-trash trashCan" data-doc="<%= issue._id %>"></i></td>
+                </tr>
+                <% }) %>
+                  <% } else{ %>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>No Bugs available</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+                    <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        const reportBtn = document.querySelector('.reportBtn');
+        const backHomeBtn = document.querySelector('.backHomeBtn');
+        const trashCan = Array.from(document.querySelectorAll('.trashCan'));
+        const searchBtn = document.querySelector('#searchBtn');
+        const title = document.querySelector("#Name");
+        const author = document.querySelector("#Author");
+        const description = document.querySelector("#Description");
+        const selectedValue = document.querySelector("#Label");
+        const tBody = document.querySelector(".tBody");
+        const id = reportBtn.dataset.id;
+        reportBtn.addEventListener('click', () => {
+          window.location.href = `/projects/${id}/report`;
+        });
+
+        backHomeBtn.addEventListener('click', () => {
+          window.location.href = `/projects`;
+        });
+
+        for (let i = 0; i < trashCan.length; i++) {
+          trashCan[i].addEventListener('click', () => {
+            const endPoint = `/projects/${id}/issues/${trashCan[i].dataset.doc}`;
+            console.log(endPoint);
+            fetch(endPoint, {
+              method: 'DELETE'
+            })
+              .then(response => {
+                return response.json()
+              })
+              .then(data => {
+                console.log(data);
+                alert('Issue has been deleted successfully');
+                window.location.href = data.redirect;
+              })
+              .catch(err => {
+                console.log(err);
+              })
+          })
+        }
+        const selectedOption = []
+        searchBtn.addEventListener('click', () => {
+          fetch(`/projects/${id}/search`, {
+            method: "GET"
+          })
+            .then(res => res.json())
+            .then(data => {
+              //console.log(data)
+              let issues = data;
+              if (title.value != "") {
+                issues = issues.filter(issue => issue.Title === title.value);
+              }
+              if (author.value != "") {
+                issues = issues.filter(issue => issue.Author === author.value);
+              }
+              if (description.value != "") {
+                console.log(description.value);
+                issues = issues.filter(issue => issue.Description === description.value);
+              }
+              if (selectedValue.value != "") {
+                for (const option of selectedValue.options) {
+                  if (option.selected) {
+                    selectedOption.push(option.value);
+                  }
+                }
+                issues = issues.filter(issue => {
+                  console.log(issue);
+                  return selectedOption.includes(issue.Label);
+                })
+              }
+              //console.log(issues);
+              if (issues.length > 0) {
+                tBody.innerHTML = "";
+                issues.forEach(issue => {
+                  tBody.innerHTML += `<tr>
+                  <td>
+                    ${issue.Title}
+                  </td>
+                  <td>
+                    ${issue.Description}
+                  </td>
+                  <td>
+                    ${issue.Author}
+                  </td>
+                  <td>
+                    ${issue.Label}
+                  </td>
+                  <td><i title="delete" class="fa-solid fa-trash trashCan" data-doc="${issue._id}"></i></td>
+                </tr>`;
+                })
+                const trashCanSearch = Array.from(document.querySelectorAll('.trashCan'));
+                for (let i = 0; i < trashCan.length; i++) {
+                  trashCanSearch[i].addEventListener('click', () => {
+                    const endPoint = `/projects/${id}/issues/${trashCanSearch[i].dataset.doc}`;
+                    console.log(endPoint);
+                    fetch(endPoint, {
+                      method: 'DELETE'
+                    })
+                      .then(response => {
+                        return response.json()
+                      })
+                      .then(data => {
+                        console.log(data);
+                        alert('Issue has been deleted successfully');
+                        window.location.href = data.redirect;
+                      })
+                      .catch(err => {
+                        console.log(err);
+                      })
+                  })
+                }
+              }
+              else {
+                  tBody.innerHTML = "";
+                  tBody.innerHTML = `<tr>
+                      <td></td>
+                      <td></td>
+                      <td>No Bugs available</td>
+                      <td></td>
+                      <td></td>
+                    </tr>`;
+                }
+              })
+            .catch(err => console.log(err))
+        })
+
+        $('#Label').SumoSelect({ search: true, searchText: 'Enter here.', okCancelInMulti: true });
+      </script>
+  </body>
+
+</html>

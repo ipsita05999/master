@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+      <div class="create-project-container">
+        <button class="createMasterBtn"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Create Label</button>&nbsp;&nbsp;
+        <button class="backHomeBtn"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Back Home</button>
+      </div>
+      <div class="table-container">
+        <table class="home-table">
+          <thead class="home-table-head">
+            <tr>
+              <th>Label Name</th>
+              <th>Created At</th>
+              <th>Modified At</th>
+              <th>IsActive</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(data.length> 0){ %>
+              <% data.forEach(item=>{ %>
+                <tr>
+                  <td>
+                    <%= item.LabelName %>
+                  </td>
+                  <td>
+                    <%= new Date(item.createdAt).toLocaleDateString() %>
+                  </td>
+                  <td>
+                    <%= new Date(item.updatedAt).toLocaleDateString() %>
+                  </td>
+                  <td>
+                    <%= item.IsActive %>
+                  </td>
+                  <td>
+                    <i title="delete" class="fa-solid fa-trash trashCan"
+                      data-doc="<%= item._id %>"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </td>
+                </tr>
+                <% }) %>
+                  <% } else{ %>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>No Records available</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+
+                    <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- create modal -->
+      <div class="modal-popup">
+        <h3 class="modal-header">Create</h3>
+        <hr />
+        <form action="/master" method="POST">
+          <label for="LabelName">Label Name:</label>
+          <input type="text" id="LabelName" name="LabelName" required>
+          <label for="IsActive">IsActive:</label>
+          <select id="IsActive" name="IsActive" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <button id="submitBtn">Create</button>
+          <button id="closeBtn">Close</button>
+        </form>
+      </div>
+      <div class="overlay"></div>
+
+      <script>
+        const backHomeBtn = document.querySelector('.backHomeBtn');
+        const trashCan = Array.from(document.querySelectorAll('.trashCan'));
+        const editBtn = Array.from(document.querySelectorAll('.editBtn'));
+        const closeBtn = document.querySelector('#closeBtn');
+        const modalWindow = document.querySelector(".modal-popup");
+        const overLay = document.querySelector(".overlay");
+        const createBtn = document.querySelector('.createMasterBtn');
+
+        backHomeBtn.addEventListener('click', () => {
+          window.location.href = '/projects';
+        });
+        createBtn.addEventListener('click', () => {
+          modalWindow.style.display = "block";
+          overLay.style.display = "block";
+        });
+        closeBtn.addEventListener('click', () => {
+          modalWindow.style.display = "none";
+          overLay.style.display = "none";
+        });
+
+        for (let i = 0; i < trashCan.length; i++) {
+          trashCan[i].addEventListener('click', () => {
+            const endPoint = `/master/${trashCan[i].dataset.doc}`;
+            fetch(endPoint, {
+              method: 'DELETE'
+            })
+              .then(response => {
+                return response.json()
+              })
+              .then(data => {
+                console.log(data);
+                alert('Label has been deleted successfully');
+                window.location.href = data.redirect;
+              })
+              .catch(err => {
+                console.log(err);
+              })
+          });
+        }
+
+      </script>
+  </body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+
+      <div class="create-issue">
+        <form action="/projects/<%= id %>" method="POST">
+          <label for="Title">Title:</label>
+          <input type="text" id="Title" name="Title" required>
+          <label for="Author">Author:</label>
+          <input type="text" id="Author" name="Author" required>
+          <label for="Label">Labels:</label>
+          <% if(labels!=null && labels.length> 0){ %>
+          <select name="Label" id="Label" placeholder="This is a placeholder" data-doc="<%= labels %>">
+            <option value=""></option>
+              <% labels.map(item=>{ %>
+                <option value="<%= item %>"><%= item %></option>
+              <% }); %>
+          </select>
+          <% } %>
+          <label for="Description">Description:</label>
+          <textarea id="Description" name="Description" required></textarea>
+          <button id="submitBtn">Submit</button>
+          <button id="backHomeBtn" data-id="<%= id %>"><i
+              class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Back</button>
+        </form>
+
+      </div>
+      <script>
+        const backHomeBtn = document.querySelector("#backHomeBtn");
+        const labelinput = document.querySelector('#Label');
+        const id = backHomeBtn.dataset.id;
+        backHomeBtn.addEventListener('click', () => {
+          window.location.href = `/projects/${id}`;
+        });
+       $('#Label').SumoSelect({search: true, searchText: 'Enter here.',okCancelInMulti: true});
+      </script>
+  </body>
+
+</html>
