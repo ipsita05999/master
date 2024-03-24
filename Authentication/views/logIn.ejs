@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <div class="container">
+      <h1>Welcome Back!</h1>
+      <div class="authcontainer">
+        <a class="googleAuth" href="/auth/google">LogIn with Google</a>
+        <img class="googlelogo" src="../Images/7123025_logo_google_g_icon.png">
+      </div>
+      <div class="separator"><hr/><p class="or">or</p></div>
+      <form class="form" id="form" method="post" action="/home" onsubmit="return validateForm()">
+        <div class="form-controls">
+          <label for="email">Email:</label><sup style="color: red;">*</sup>
+          <input type="email" id="email" placeholder="Enter your registered Email" name="email" autocomplete="false">
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <small>Error Msg</small>
+        </div>
+        <div class="form-controls">
+          <label for="password">Password:</label><sup style="color: red;">*</sup>
+          <input type="password" id="password" placeholder="Enter your password" name="password" autocomplete="false">
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <small>Error Msg</small>
+        </div>
+        <div class="g-recaptcha" data-sitekey="6LdO7U8pAAAAAMADq5_bCelh9fCL09p7bNps8HEw"></div>
+        <input type="submit" value="LogIn" class="btn">
+      </form>
+      <a class="forgotPass" href="/forgotPassword">Forgot Password?</a>
+      <div class="signup">
+        <p>Don't have an accont?&nbsp;&nbsp;<a href="/signUp">SignUp</a></p>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <script src="/JavaSripts/logIn.js"></script>
+  </body>
+</html>

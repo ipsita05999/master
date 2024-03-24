@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+<body>
+  <nav class="navbar">
+    <img class="logo" src="/Images/1791961.png">
+    <h2 class="header">Authenticator App</h2>
+    <div class="btn-cont">
+    <div class="signout" id="signout">Sign Out</div>
+    <div class="resetP" id="resetP">Reset Password</div>
+    </div>
+  </nav>
+  <div class="container">
+    <h2 id="homeHeader"></h2>
+    <div id="quote-container">
+      <h3 id="quote"></h3>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+  <script src="/JavaSripts/home.js"></script>
+</body>
+</html>
